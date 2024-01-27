@@ -10,7 +10,7 @@ const Shortcuts = () => {
 
   return (
     <div>
-      <button className="btn btn-light border" onClick={handleButtonClick}>
+      <button className="btn btn-light border p-2" onClick={handleButtonClick}>
         {!isOpen ? <HelpOutlineOutlinedIcon />: <CloseOutlinedIcon/>}
       </button>
       {isOpen && (

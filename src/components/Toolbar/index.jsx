@@ -45,6 +45,7 @@ const Toolbar = ({
     ]);
     setHistory((prevHistory) => prevHistory.slice(0, prevHistory.length - 1));
   };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       // Check if the Ctrl (Cmd on Mac) key is pressed

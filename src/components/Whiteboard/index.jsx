@@ -3,6 +3,7 @@ import rough from "roughjs";
 import Toolbar from "../Toolbar";
 import Shortcuts from "../KeyboardShortcuts/Shortcuts";
 import Placeholder from "../Placeholder/Placeholder";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
 const roughGenerator = rough.generator();
 
@@ -214,26 +215,40 @@ const WhiteBoard = ({ isToolbarVisible }) => {
           })
         );
       } else if (tool === "circle") {
-      setElements((prevElements) =>
-        prevElements.map((element, index) => {
-          if (index === elements.length - 1) {
-            const a = Math.abs(offsetX - element.offsetX);
-            const b = Math.abs(offsetY - element.offsetY);
-            const diameter = Math.sqrt(a * a + b * b)*2;
-            return {
-              ...element,
-              diameter: diameter,
-            };
-          } else {
-            return element;
-          }
-        })
-      );
-    }}
+        setElements((prevElements) =>
+          prevElements.map((element, index) => {
+            if (index === elements.length - 1) {
+              const a = Math.abs(offsetX - element.offsetX);
+              const b = Math.abs(offsetY - element.offsetY);
+              const diameter = Math.sqrt(a * a + b * b)*2;
+              return {
+                ...element,
+                diameter: diameter,
+              };
+            } else {
+              return element;
+            }
+          })
+        );
+      }}
   };
 
   const handleMouseUp = (e) => {
     setIsDrawing(false);
+  };
+
+  const handleDownload = () => {
+    const canvas = canvasRef.current;
+
+    // Create a temporary link element
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "whiteboard.png";
+
+    // Trigger a click on the link to start the download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -261,7 +276,10 @@ const WhiteBoard = ({ isToolbarVisible }) => {
           />
         )}
       </div>
-      <div className="position-absolute bottom-0 end-0 m-4">
+      <div className="position-absolute bottom-0 end-0 gap-3 m-4 d-flex align-items-end">
+        <button className="btn btn-light border p-2" onClick={handleDownload}>
+          <FileDownloadOutlinedIcon />
+        </button>
         <Shortcuts />
       </div>
       {!hasUserClicked && <Placeholder />}
