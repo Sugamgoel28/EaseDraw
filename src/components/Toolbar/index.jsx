@@ -110,13 +110,19 @@ const Toolbar = ({
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [undo, redo, handleClearCanvas, toggleFullScreen, setTool]);
+
   return (
     <div
       className="btn-group btn-group-toggle btn-group-vertical d-flex flex-column justify-content-center align-items-center z-2"
       style={{ height: "5vh", top: "38vh", left: "0px", width: "70px" }}
       data-toggle="buttons"
     >
-      <label htmlFor="pencil" className="btn btn-light border p-3">
+      <label
+        htmlFor="pencil"
+        className={`btn btn-light border p-3 ${
+          tool === "pencil" ? "active" : ""
+        }`}
+      >
         <CreateOutlinedIcon fontSize="large" color="primary" />
         <input
           type="radio"
@@ -128,7 +134,9 @@ const Toolbar = ({
           style={{ opacity: "0", width: "0px" }}
         />
       </label>
-      <label htmlFor="line" className="btn btn-light border p-3">
+      <label htmlFor="line" className={`btn btn-light border p-3 ${
+          tool === "line" ? "active" : ""
+        }`}>
         <HorizontalRuleOutlinedIcon fontSize="large" color="primary" />
         <input
           type="radio"
@@ -140,7 +148,9 @@ const Toolbar = ({
           onChange={(e) => setTool(e.target.value)}
         />
       </label>
-      <label htmlFor="rect" className="btn btn-light border p-3">
+      <label htmlFor="rect" className={`btn btn-light border p-3 ${
+          tool === "rect" ? "active" : ""
+        }`}>
         <RectangleOutlinedIcon fontSize="large" color="primary" />
         <input
           type="radio"
@@ -152,7 +162,9 @@ const Toolbar = ({
           onChange={(e) => setTool(e.target.value)}
         />
       </label>
-      <label htmlFor="circle" className="btn btn-light border p-3">
+      <label htmlFor="circle" className={`btn btn-light border p-3 ${
+          tool === "circle" ? "active" : ""
+        }`}>
         <CircleOutlinedIcon fontSize="large" color="primary" />
         <input
           type="radio"
