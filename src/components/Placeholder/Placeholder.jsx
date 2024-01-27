@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import placeholderimage from "./placeh.png";
 
 const Placeholder = () => {
+  const [hoveredElement, setHoveredElement] = useState(null);
+
+  const handleHover = (elementId, opacity) => {
+    document.getElementById(elementId).style.opacity = opacity;
+  };
+
   const containerStyle = {
     position: "absolute",
     top: "50%",
@@ -26,38 +32,6 @@ const Placeholder = () => {
     marginBottom: 0,
   };
 
-  const handleImageHover = () => {
-    document.getElementById("image").style.opacity = "1";
-  };
-
-  const handleImageLeave = () => {
-    document.getElementById("image").style.opacity = "0.5";
-  };
-
-  const handleWelcomeHover = () => {
-    document.getElementById("welcomeText").style.opacity = "1";
-  };
-
-  const handleWelcomeLeave = () => {
-    document.getElementById("welcomeText").style.opacity = "0.5";
-  };
-
-  const handleClickHover = () => {
-    document.getElementById("clickText").style.opacity = "1";
-  };
-
-  const handleClickLeave = () => {
-    document.getElementById("clickText").style.opacity = "0.5";
-  };
-
-  const handleMadeWithHover = () => {
-    document.getElementById("madeWithText").style.opacity = "1";
-  };
-
-  const handleMadeWithLeave = () => {
-    document.getElementById("madeWithText").style.opacity = "0.5";
-  };
-
   return (
     <div id="placeholder" style={containerStyle}>
       <img
@@ -65,30 +39,30 @@ const Placeholder = () => {
         src={placeholderimage}
         alt="brandlogo"
         style={imageStyle}
-        onMouseEnter={handleImageHover}
-        onMouseLeave={handleImageLeave}
+        onMouseEnter={() => handleHover("image", 1)}
+        onMouseLeave={() => handleHover("image", 0.5)}
       />
       <p
         id="welcomeText"
         style={textStyle}
-        onMouseEnter={handleWelcomeHover}
-        onMouseLeave={handleWelcomeLeave}
+        onMouseEnter={() => handleHover("welcomeText", 1)}
+        onMouseLeave={() => handleHover("welcomeText", 0.5)}
       >
         Welcome to Ease Draw
       </p>
       <h1
         id="clickText"
         style={textStyle}
-        onMouseEnter={handleClickHover}
-        onMouseLeave={handleClickLeave}
+        onMouseEnter={() => handleHover("clickText", 1)}
+        onMouseLeave={() => handleHover("clickText", 0.5)}
       >
         Click Anywhere to start
       </h1>
       <p
         id="madeWithText"
         style={textStyle}
-        onMouseEnter={handleMadeWithHover}
-        onMouseLeave={handleMadeWithLeave}
+        onMouseEnter={() => handleHover("madeWithText", 1)}
+        onMouseLeave={() => handleHover("madeWithText", 0.5)}
       >
         Made with 💓
       </p>
