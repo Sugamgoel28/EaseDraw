@@ -1,7 +1,16 @@
 import "../../App.css"; // Import the CSS file
 import githubIcon from "./github.png";
+import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
+
 
 const Navbar = () => {
+  const toggleFullScreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.documentElement.requestFullscreen();
+    }
+  };
   return (
     <>
       <div
@@ -30,6 +39,9 @@ const Navbar = () => {
             className="d-inline-block align-text-top"
           />
         </a>
+      <button className="btn border d-inline-block m-2" onClick={toggleFullScreen}>
+        <OpenInFullOutlinedIcon fontSize="small"/>
+      </button>
       </div>
     </>
   );

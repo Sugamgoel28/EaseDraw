@@ -6,7 +6,6 @@ import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import HorizontalRuleOutlinedIcon from "@mui/icons-material/HorizontalRuleOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
-import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
 import { useEffect } from "react";
 
 const Toolbar = ({
@@ -27,13 +26,7 @@ const Toolbar = ({
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     setElements([]);
   };
-  const toggleFullScreen = () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    } else {
-      document.documentElement.requestFullscreen();
-    }
-  };
+
   const undo = () => {
     setHistory((prevHistory) => [
       ...prevHistory,
@@ -109,7 +102,7 @@ const Toolbar = ({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [undo, redo, handleClearCanvas, toggleFullScreen, setTool]);
+  }, [undo, redo, handleClearCanvas, setTool]);
 
   return (
     <div
@@ -208,9 +201,6 @@ const Toolbar = ({
         onClick={() => redo()}
       >
         <RedoIcon color="primary" />
-      </button>
-      <button className="btn btn-light border p-3" onClick={toggleFullScreen}>
-        <OpenInFullOutlinedIcon color="primary" />
       </button>
       <button className="btn btn-danger p-3" onClick={handleClearCanvas}>
         <DeleteIcon fontSize="large" />
