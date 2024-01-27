@@ -4,7 +4,7 @@ import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import HorizontalRuleOutlinedIcon from "@mui/icons-material/HorizontalRuleOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
-import { useEffect } from "react";
+import EllipseIcon from "../../ellipse.svg";
 
 const Toolbar = ({
   tool,
@@ -75,6 +75,23 @@ const Toolbar = ({
           checked={tool === "circle"}
           style={{ opacity: "0", width: "0" }}
           value="circle"
+          onChange={(e) => setTool(e.target.value)}
+        />
+      </label>
+      <label
+        htmlFor="ellipse"
+        className={`btn btn-light border p-2 ${
+          tool === "ellipse" ? "active" : ""
+        }`}
+      >
+        <img width="44px" src={EllipseIcon} />
+        <input
+          type="radio"
+          name="tool"
+          id="ellipse"
+          checked={tool === "ellipse"}
+          style={{ opacity: "0", width: "0" }}
+          value="ellipse"
           onChange={(e) => setTool(e.target.value)}
         />
       </label>

@@ -104,6 +104,20 @@ const WhiteBoard = ({ isToolbarVisible }) => {
             }
           })
         );
+      } else if (tool === "ellipse") {
+        setElements((prevElements) =>
+          prevElements.map((element, index) => {
+            if (index === elements.length - 1) {
+              return {
+                ...element,
+                width: offsetX - element.offsetX,
+                height: offsetY - element.offsetY,
+              };
+            } else {
+              return element;
+            }
+          })
+        );
       }
     }
   };
@@ -111,7 +125,7 @@ const WhiteBoard = ({ isToolbarVisible }) => {
   const handleMouseUp = (e) => {
     setIsDrawing(false);
   };
-  
+
   const handleMouseDown = (e) => {
     const { offsetX, offsetY } = e.nativeEvent;
 
@@ -158,6 +172,18 @@ const WhiteBoard = ({ isToolbarVisible }) => {
           offsetX,
           offsetY,
           diameter: 0,
+          stroke: color,
+        },
+      ]);
+    } else if (tool === "ellipse") {
+      setElements((prevElements) => [
+        ...prevElements,
+        {
+          type: "ellipse",
+          offsetX,
+          offsetY,
+          width: 0,
+          height: 0,
           stroke: color,
         },
       ]);
@@ -275,7 +301,6 @@ const WhiteBoard = ({ isToolbarVisible }) => {
     };
   }, [undo, redo, handleClearCanvas, setTool]);
 
-
   useLayoutEffect(() => {
     if (canvasRef) {
       const roughCanvas = rough.canvas(canvasRef.current);
@@ -336,6 +361,20 @@ const WhiteBoard = ({ isToolbarVisible }) => {
               }
             )
           );
+        } else if (element.type === "ellipse") {
+          roughCanvas.draw(
+            roughGenerator.ellipse(
+              element.offsetX,
+              element.offsetY,
+              element.width,
+              element.height,
+              {
+                stroke: element.stroke,
+                strokeWidth: 2,
+                roughness: 0,
+              }
+            )
+          );
         }
       });
     }
@@ -362,6 +401,7 @@ const WhiteBoard = ({ isToolbarVisible }) => {
           />
         )}
       </div>
+
       <div className="position-absolute bottom-0 end-0 gap-3 m-4 d-flex align-items-end">
         <div>
           <button
