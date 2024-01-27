@@ -64,7 +64,7 @@ const WhiteBoard = ({ isToolbarVisible }) => {
         if (element.type === "pencil") {
           roughCanvas.linearPath(element.path, {
             stroke: element.stroke,
-            strokeWidth: 3,
+            strokeWidth: 2,
             roughness: 0,
           });
         } else if (element.type === "line") {
