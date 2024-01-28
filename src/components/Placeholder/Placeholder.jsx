@@ -33,40 +33,42 @@ const Placeholder = () => {
   };
 
   return (
-    <div id="placeholder" style={containerStyle}>
-      <img
-        id="image"
-        src={placeholderimage}
-        alt="brandlogo"
-        style={imageStyle}
-        onMouseEnter={() => handleHover("image", 1)}
-        onMouseLeave={() => handleHover("image", 0.5)}
-      />
-      <p
-        id="welcomeText"
-        style={textStyle}
-        onMouseEnter={() => handleHover("welcomeText", 1)}
-        onMouseLeave={() => handleHover("welcomeText", 0.5)}
-      >
-        Welcome to Ease Draw
-      </p>
-      <h1
-        id="clickText"
-        style={textStyle}
-        onMouseEnter={() => handleHover("clickText", 1)}
-        onMouseLeave={() => handleHover("clickText", 0.5)}
-      >
-        Click Anywhere to start
-      </h1>
-      <p
-        id="madeWithText"
-        style={textStyle}
-        onMouseEnter={() => handleHover("madeWithText", 1)}
-        onMouseLeave={() => handleHover("madeWithText", 0.5)}
-      >
-        Made with 💓
-      </p>
-    </div>
+    <>
+      <div id="placeholder" style={containerStyle}>
+        <img
+          id="image"
+          src={placeholderimage}
+          alt="brandlogo"
+          style={imageStyle}
+          onMouseEnter={() => handleHover("image", 1)}
+          onMouseLeave={() => handleHover("image", 0.5)}
+        />
+        <p
+          id="welcomeText"
+          style={textStyle}
+          onMouseEnter={() => handleHover("welcomeText", 1)}
+          onMouseLeave={() => handleHover("welcomeText", 0.5)}
+        >
+          Welcome to Ease Draw
+        </p>
+        <h1
+          id="clickText"
+          style={textStyle}
+          onMouseEnter={() => handleHover("clickText", 1)}
+          onMouseLeave={() => handleHover("clickText", 0.5)}
+        >
+          Click Anywhere to start
+        </h1>
+        <p
+          id="madeWithText"
+          style={textStyle}
+          onMouseEnter={() => handleHover("madeWithText", 1)}
+          onMouseLeave={() => handleHover("madeWithText", 0.5)}
+        >
+          Made with 💓
+        </p>
+      </div>
+    </>
   );
 };
 

@@ -50,20 +50,6 @@ const Toolbar = ({
           onChange={(e) => setTool(e.target.value)}
         />
       </label>
-      <label htmlFor="rect" className={`btn btn-light border p-3 ${
-          tool === "rect" ? "active" : ""
-        }`}>
-        <RectangleOutlinedIcon fontSize="large" color="primary" />
-        <input
-          type="radio"
-          name="tool"
-          id="rect"
-          checked={tool === "rect"}
-          style={{ opacity: "0", width: "0" }}
-          value="rect"
-          onChange={(e) => setTool(e.target.value)}
-        />
-      </label>
       <label htmlFor="circle" className={`btn btn-light border p-3 ${
           tool === "circle" ? "active" : ""
         }`}>
@@ -75,6 +61,20 @@ const Toolbar = ({
           checked={tool === "circle"}
           style={{ opacity: "0", width: "0" }}
           value="circle"
+          onChange={(e) => setTool(e.target.value)}
+        />
+      </label>
+      <label htmlFor="rect" className={`btn btn-light border p-3 ${
+          tool === "rect" ? "active" : ""
+        }`}>
+        <RectangleOutlinedIcon fontSize="large" color="primary" />
+        <input
+          type="radio"
+          name="tool"
+          id="rect"
+          checked={tool === "rect"}
+          style={{ opacity: "0", width: "0" }}
+          value="rect"
           onChange={(e) => setTool(e.target.value)}
         />
       </label>
