@@ -64,7 +64,7 @@ EaseDraw/
 ## Dependencies
 
 |RoughJS|React|Bootstrap|Material UI| Vitejs|Vercel|
-|--|--|--|--|--|--|
+|:-:|:-:|:-:|:-:|:-:|:-:|
 |<img src="public/roughjs.png" alt="roughjs" width="45"/>|<img src="public/react.png" alt="logo" width="45">|<img src="public/bootstrap.png" alt="logo" width="45">|<img src="public/mui.png" alt="logo" width="45">|<img src="public/vite.svg" alt="logo" width="45">|<img src="public/vercel.png" alt="logo" width="45">
 
  ## Contributing
