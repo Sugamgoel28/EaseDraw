@@ -43,82 +43,57 @@ const WhiteBoard = ({ isToolbarVisible }) => {
 
   const handleMouseMove = (e) => {
     const { offsetX, offsetY } = e.nativeEvent;
-    if (isDrawing) {
-      if (tool === "pencil") {
-        const { path } = elements[elements.length - 1];
-        const newPath = [...path, [offsetX, offsetY]];
 
-        setElements((prevElements) =>
-          prevElements.map((element, index) => {
-            if (index === elements.length - 1) {
-              return {
-                ...element,
-                path: newPath,
-              };
-            } else {
-              return element;
+    if (isDrawing) {
+      setElements((prevElements) =>
+        prevElements.map((element, index) => {
+          if (index === elements.length - 1) {
+            let updatedElement;
+
+            switch (tool) {
+              case "pencil":
+                updatedElement = {
+                  ...element,
+                  path: [...element.path, [offsetX, offsetY]],
+                };
+                break;
+              case "line":
+                updatedElement = {
+                  ...element,
+                  width: offsetX,
+                  height: offsetY,
+                };
+                break;
+              case "rect":
+                updatedElement = {
+                  ...element,
+                  width: offsetX - element.offsetX,
+                  height: offsetY - element.offsetY,
+                };
+                break;
+              case "circle":
+                const a = Math.abs(offsetX - element.offsetX);
+                const b = Math.abs(offsetY - element.offsetY);
+                const diameter = Math.sqrt(a * a + b * b) * 2;
+                updatedElement = { ...element, diameter };
+                break;
+              case "ellipse":
+                updatedElement = {
+                  ...element,
+                  width: offsetX - element.offsetX,
+                  height: offsetY - element.offsetY,
+                };
+                break;
+              default:
+                updatedElement = element;
             }
-          })
-        );
-      } else if (tool === "line") {
-        setElements((prevElements) =>
-          prevElements.map((element, index) => {
-            if (index === elements.length - 1) {
-              return {
-                ...element,
-                width: offsetX,
-                height: offsetY,
-              };
-            } else {
-              return element;
-            }
-          })
-        );
-      } else if (tool === "rect") {
-        setElements((prevElements) =>
-          prevElements.map((element, index) => {
-            if (index === elements.length - 1) {
-              return {
-                ...element,
-                width: offsetX - element.offsetX,
-                height: offsetY - element.offsetY,
-              };
-            } else {
-              return element;
-            }
-          })
-        );
-      } else if (tool === "circle") {
-        setElements((prevElements) =>
-          prevElements.map((element, index) => {
-            if (index === elements.length - 1) {
-              const a = Math.abs(offsetX - element.offsetX);
-              const b = Math.abs(offsetY - element.offsetY);
-              const diameter = Math.sqrt(a * a + b * b) * 2;
-              return {
-                ...element,
-                diameter: diameter,
-              };
-            } else {
-              return element;
-            }
-          })
-        );
-      } else if (tool === "ellipse") {
-        setElements((prevElements) =>
-          prevElements.map((element, index) => {
-            if (index === elements.length - 1) {
-              return {
-                ...element,
-                width: offsetX - element.offsetX,
-                height: offsetY - element.offsetY,
-              };
-            } else {
-              return element;
-            }
-          })
-        );
-      }
+
+            return updatedElement;
+          } else {
+            return element;
+          }
+        })
+      );
     }
   };
 
@@ -129,65 +104,41 @@ const WhiteBoard = ({ isToolbarVisible }) => {
   const handleMouseDown = (e) => {
     const { offsetX, offsetY } = e.nativeEvent;
 
-    if (tool === "pencil") {
-      setElements((prevElements) => [
-        ...prevElements,
-        {
-          type: "pencil",
-          offsetX,
-          offsetY,
-          path: [[offsetX, offsetY]],
-          stroke: color,
-        },
-      ]);
-    } else if (tool === "line") {
-      setElements((prevElements) => [
-        ...prevElements,
-        {
-          type: "line",
-          offsetX,
-          offsetY,
-          width: offsetX,
-          height: offsetY,
-          stroke: color,
-        },
-      ]);
-    } else if (tool === "rect") {
-      setElements((prevElements) => [
-        ...prevElements,
-        {
-          type: "rect",
-          offsetX,
-          offsetY,
-          width: 0,
-          height: 0,
-          stroke: color,
-        },
-      ]);
-    } else if (tool === "circle") {
-      setElements((prevElements) => [
-        ...prevElements,
-        {
-          type: "circle",
-          offsetX,
-          offsetY,
-          diameter: 0,
-          stroke: color,
-        },
-      ]);
-    } else if (tool === "ellipse") {
-      setElements((prevElements) => [
-        ...prevElements,
-        {
-          type: "ellipse",
-          offsetX,
-          offsetY,
-          width: 0,
-          height: 0,
-          stroke: color,
-        },
-      ]);
+    const newElement = {
+      offsetX,
+      offsetY,
+      stroke: color,
+    };
+
+    switch (tool) {
+      case "pencil":
+        newElement.type = "pencil";
+        newElement.path = [[offsetX, offsetY]];
+        break;
+      case "line":
+        newElement.type = "line";
+        newElement.width = offsetX;
+        newElement.height = offsetY;
+        break;
+      case "rect":
+        newElement.type = "rect";
+        newElement.width = 0;
+        newElement.height = 0;
+        break;
+      case "circle":
+        newElement.type = "circle";
+        newElement.diameter = 0;
+        break;
+      case "ellipse":
+        newElement.type = "ellipse";
+        newElement.width = 0;
+        newElement.height = 0;
+        break;
+      default:
+        return;
     }
+
+    setElements((prevElements) => [...prevElements, newElement]);
     setIsDrawing(true);
   };
 
@@ -302,81 +253,75 @@ const WhiteBoard = ({ isToolbarVisible }) => {
   }, [undo, redo, handleClearCanvas, setTool]);
 
   useLayoutEffect(() => {
-    if (canvasRef) {
-      const roughCanvas = rough.canvas(canvasRef.current);
+    const drawElement = (roughCanvas, element) => {
+      const options = {
+        stroke: element.stroke,
+        strokeWidth: 2,
+        roughness: 0,
+      };
 
-      if (elements.length > 0) {
-        ctxRef.current.clearRect(
-          0,
-          0,
-          canvasRef.current.width,
-          canvasRef.current.height
-        );
-      }
-      elements.forEach((element) => {
-        if (element.type === "pencil") {
-          roughCanvas.linearPath(element.path, {
-            stroke: element.stroke,
-            strokeWidth: 2,
-            roughness: 0,
-          });
-        } else if (element.type === "line") {
+      switch (element.type) {
+        case "pencil":
+          roughCanvas.linearPath(element.path, options);
+          break;
+        case "line":
           roughCanvas.draw(
             roughGenerator.line(
               element.offsetX,
               element.offsetY,
               element.width,
               element.height,
-              {
-                stroke: element.stroke,
-                strokeWidth: 2,
-                roughness: 0,
-              }
+              options
             )
           );
-        } else if (element.type === "rect") {
+          break;
+        case "rect":
           roughCanvas.draw(
             roughGenerator.rectangle(
               element.offsetX,
               element.offsetY,
               element.width,
               element.height,
-              {
-                stroke: element.stroke,
-                strokeWidth: 2,
-                roughness: 0,
-              }
+              options
             )
           );
-        } else if (element.type === "circle") {
+          break;
+        case "circle":
           roughCanvas.draw(
             roughGenerator.circle(
               element.offsetX,
               element.offsetY,
               element.diameter,
-              {
-                stroke: element.stroke,
-                strokeWidth: 2,
-                roughness: 0,
-              }
+              options
             )
           );
-        } else if (element.type === "ellipse") {
+          break;
+        case "ellipse":
           roughCanvas.draw(
             roughGenerator.ellipse(
               element.offsetX,
               element.offsetY,
               element.width,
               element.height,
-              {
-                stroke: element.stroke,
-                strokeWidth: 2,
-                roughness: 0,
-              }
+              options
             )
           );
-        }
-      });
+          break;
+        default:
+          break;
+      }
+    };
+
+    if (canvasRef && elements.length > 0) {
+      const roughCanvas = rough.canvas(canvasRef.current);
+      ctxRef.current.clearRect(
+        0,
+        0,
+        canvasRef.current.width,
+        canvasRef.current.height
+      );
+
+      elements.forEach((element) => drawElement(roughCanvas, element));
     }
   }, [elements]);
 
