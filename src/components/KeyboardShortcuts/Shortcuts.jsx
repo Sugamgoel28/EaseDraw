@@ -43,6 +43,11 @@ const Shortcuts = () => {
               <th scope="row">Circle</th>
               <td><kbd className="bg-white text-dark border border-dark ">C</kbd></td>
             </tr>
+
+            <tr>
+              <th scope="row">Ellipse</th>
+              <td><kbd className="bg-white text-dark border border-dark ">E</kbd></td>
+            </tr>
             
             <tr>
               <th scope="row">Undo</th>

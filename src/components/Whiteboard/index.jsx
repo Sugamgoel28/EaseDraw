@@ -238,6 +238,9 @@ const WhiteBoard = ({ isToolbarVisible }) => {
           case "c":
             setTool("circle");
             break;
+          case "e":
+            setTool("ellipse");
+            break;
 
           default:
             break;
