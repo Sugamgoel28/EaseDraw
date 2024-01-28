@@ -13,7 +13,7 @@ Project EaseDraw is an online whiteboard platform designed to enhance collaborat
  > Support, ⭐ the repository!
 
  
-<img src="public/screen.png" alt="logo" width="500">
+<img src="public/screen.png" alt="logo">
 
 
 ## Installation
@@ -62,11 +62,10 @@ EaseDraw/
 ```
 
 ## Dependencies
-RoughJS
-<img src="public/roughjs.png" alt="roughjs" width="400"/>
-|React|Bootstrap|Material UI| Vitejs|Vercel|
-|--|--|--|--|--|
-|<img src="public/react.png" alt="logo" width="45">|<img src="public/bootstrap.png" alt="logo" width="45">|<img src="public/mui.png" alt="logo" width="45">|<img src="public/vite.svg" alt="logo" width="45">|<img src="public/vercel.png" alt="logo" width="45">
+
+|RoughJS|React|Bootstrap|Material UI| Vitejs|Vercel|
+|--|--|--|--|--|--|
+|<img src="public/roughjs.png" alt="roughjs" width="45"/>|<img src="public/react.png" alt="logo" width="45">|<img src="public/bootstrap.png" alt="logo" width="45">|<img src="public/mui.png" alt="logo" width="45">|<img src="public/vite.svg" alt="logo" width="45">|<img src="public/vercel.png" alt="logo" width="45">
 
  ## Contributing
 
