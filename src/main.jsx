@@ -10,5 +10,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Routes>
     <App />
-  </Routes>,
+    <SpeedInsights/>
+  </Routes>
 );
