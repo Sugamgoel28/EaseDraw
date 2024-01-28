@@ -23,6 +23,7 @@ const WhiteBoard = ({ isToolbarVisible }) => {
   const [hasUserClicked, setHasUserClicked] = useState(false);
 
   const undo = () => {
+    e.preventDefault();
     setHistory((prevHistory) => [
       ...prevHistory,
       elements[elements.length - 1],
@@ -34,6 +35,7 @@ const WhiteBoard = ({ isToolbarVisible }) => {
   };
 
   const redo = () => {
+    e.preventDefault();
     setElements((prevElements) => [
       ...prevElements,
       history[history.length - 1],

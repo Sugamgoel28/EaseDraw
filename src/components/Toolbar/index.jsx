@@ -37,7 +37,7 @@ const Toolbar = ({ tool, setTool, color, setColor, handleClearCanvas }) => {
   return (
     <div
       className="btn-group btn-group-toggle btn-group-vertical d-flex flex-column justify-content-center align-items-center z-2"
-      style={{ height: "5vh", top: "38vh", left: "0px", width: "70px" }}
+      style={{ height: "fit-content", top: "2rem", left: "0px",width: "4.5rem" }}
       data-toggle="buttons"
     >
       {tools.map(({ id, icon }) => (
@@ -52,7 +52,7 @@ const Toolbar = ({ tool, setTool, color, setColor, handleClearCanvas }) => {
           id="color"
           style={{
             border: "none",
-            width: "30px",
+            width: "2rem",
             height: "1.5vh",
             margin: "0px",
             padding: "0px",
