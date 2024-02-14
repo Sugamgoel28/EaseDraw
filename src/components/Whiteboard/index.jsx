@@ -97,6 +97,52 @@ const WhiteBoard = ({ isToolbarVisible }) => {
     }
   };
 
+  const handleTouchStart = (e) => {
+    const { touches } = e;
+    if (touches.length === 1) {
+      const touch = touches[0];
+      const { offsetX, offsetY } = getTouchOffset(touch);
+      handleMouseDown({ nativeEvent: { offsetX, offsetY } });
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    const { touches } = e;
+    if (touches.length === 1) {
+      const touch = touches[0];
+      const { offsetX, offsetY } = getTouchOffset(touch);
+      handleMouseMove({ nativeEvent: { offsetX, offsetY } });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    handleMouseUp();
+  };
+
+  const getTouchOffset = (touch) => {
+    const rect = canvasRef.current.getBoundingClientRect();
+    const scaleX = canvasRef.current.width / rect.width;
+    const scaleY = canvasRef.current.height / rect.height;
+    return {
+      offsetX: (touch.clientX - rect.left) * scaleX,
+      offsetY: (touch.clientY - rect.top) * scaleY,
+    };
+  };
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+
+    canvas.addEventListener("touchstart", handleTouchStart);
+    canvas.addEventListener("touchmove", handleTouchMove);
+    canvas.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      canvas.removeEventListener("touchstart", handleTouchStart);
+      canvas.removeEventListener("touchmove", handleTouchMove);
+      canvas.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
+
   const handleMouseUp = (e) => {
     setIsDrawing(false);
   };
