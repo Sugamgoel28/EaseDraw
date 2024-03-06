@@ -1,7 +1,7 @@
 <a href="https://easedraw.vercel.app/">
 <img src="public/favicon.png" alt="logo" width="40" align="center"/> 
 
-# PROJECT - EaseDraw 🔗  
+# PROJECT - EaseDraw [LIVE LINK] 🔗  
 
 </a>
 
